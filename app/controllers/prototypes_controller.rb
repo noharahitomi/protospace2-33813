@@ -4,6 +4,10 @@ class PrototypesController < ApplicationController
   end
 
   def new
+    unless user_signed_in?
+      redirect_to root_path
+    end
+
     @prototype = Prototype.new
   end
 
@@ -23,6 +27,10 @@ class PrototypesController < ApplicationController
   end
 
   def edit
+    unless user_signed_in? == current_user.id
+      redirect_to root_path
+    end
+
     @prototype = Prototype.find(params[:id])
   end
 
@@ -36,6 +44,10 @@ class PrototypesController < ApplicationController
   end
 
   def destroy
+    unless user_signed_in? == current_user.id
+      redirect_to root_path
+    end
+
     prototype = Prototype.find(params[:id])
     prototype.destroy
     redirect_to root_path
