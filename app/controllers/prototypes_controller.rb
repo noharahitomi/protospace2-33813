@@ -4,11 +4,10 @@ class PrototypesController < ApplicationController
   end
 
   def new
-    unless user_signed_in?
+    @prototype = Prototype.new
+    unless user_signed_in? && current_user.id
       redirect_to root_path
     end
-
-    @prototype = Prototype.new
   end
 
   def create
